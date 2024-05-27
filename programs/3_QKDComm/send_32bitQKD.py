@@ -148,6 +148,8 @@ def keySiftAliceC(valA_str, basA_str):
 baudrate = 38400      # Default in Arduino
 timeout = 0.1        # Serial timeout (in s).
 
+MAX_LEN = 32
+
 # Opens the sender side serial port
 deviceC = serial.Serial(serial_addrC, baudrate, timeout=timeout)
 deviceQ = serial.Serial(serial_addrQ, baudrate, timeout=timeout)
@@ -185,7 +187,7 @@ try:
         #time.sleep(wait_till_sync) # Wait until Bob is ready to perform QKD
         key = keySiftAliceC(val_str, bas_str)
         seckey_bin = seckey_bin + key
-        if len(seckey_bin) >= 32: # If the key is longer than 32 bits, stop operation
+        if len(seckey_bin) > MAX_LEN: # If the key is longer than 32 bits, stop operation
             break
         else:
             print("Done! You've got", len(key), "bits. Total length:", len(seckey_bin), "bits.")
@@ -194,12 +196,12 @@ try:
     print("DONE. The task is completed.")
 
     # You've got the key!
-    seckey_bin = seckey_bin[:32] # Trim to 32 bits
-    seckey_hex = tohex(int("0b"+seckey_bin, 0), 32)
+    seckey_bin = seckey_bin[:MAX_LEN] # Trim to 32 bits
+    seckey_hex = tohex(int("0b"+seckey_bin, 0), MAX_LEN)
     # Some intrepreter introduces L at the end (which probably means long). Will remove them (cosmetic reason)
     if seckey_hex[-1] == "L":
         seckey_hex = seckey_hex[:-1]
-    print("The 32 bit secret key is (in hex):", seckey_hex[2:].zfill(8))
+    print(f"The {MAX_LEN} bit secret key is (in hex):", seckey_hex[2:].zfill(8))
     print("\n Congrats. Use the key wisely. Thank you!")
 
 except KeyboardInterrupt:

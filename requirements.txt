@@ -11,7 +11,7 @@ packaging
 Pillow
 pyparsing
 PyQt5
-PyQt5-Qt5
+#PyQt5-Qt5
 PyQt5-sip
 pyqtgraph
 pyserial
@@ -20,7 +20,7 @@ PyYAML
 scikit-learn
 scipy
 six
-sklearn
+#sklearn
 tabulate
 threadpoolctl
 tqdm

@@ -135,7 +135,7 @@ class MyWindowClass(QMainWindow, form_class):
 		self.plotWidget.setLabel('left', 'Power', 'V',**labelStyle)
 		self.plotWidget.setLabel('bottom', 'Absolute Angle', '',**labelStyle)
 
-
+																
 		# Set timer
 		self.timer = QTimer()
 		self.timer.timeout.connect(self.update_measure)
